@@ -98,8 +98,16 @@ namespace K2Field.AdoNetHelper.ServiceBroker.Helpers
         {
             return Map[type.FullName.ToLower()];
         }
-
-
+        /// <summary>
+        /// Returns the SoType by its string value - Text/YesNo/Memo etc.
+        /// </summary>
+        /// <param name="name">Name of the SoType value</param>
+        /// <returns></returns>
+        public static SoType GetSoTypeByName(string name)
+        {
+            SoType soType = (SoType)Enum.Parse(typeof(SoType), name);
+            return soType;
+        }
         /// <summary>
         /// Retrieve the .NET Type (typeof(Type).toString()) for a given SOType.
         /// </summary>

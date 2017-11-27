@@ -19,7 +19,6 @@ namespace K2Field.AdoNetHelper.ServiceBroker
         private static readonly object serviceObjectLock = new object();
         private static Dictionary<string, Type> _serviceObjectToType = new Dictionary<string, Type>();
         private List<ServiceObjectBase> _serviceObjects;
-        private List<SoDefinition> _soDefinitions; 
         private object syncobject = new object();
         #endregion Private Properties
         #region Internal properties for ServiceObjectBase's child classes.
@@ -79,14 +78,15 @@ namespace K2Field.AdoNetHelper.ServiceBroker
 
                 if (sObject == null || string.IsNullOrEmpty(sObject.Name))
                 {
-                    throw new ApplicationException(Resources.SOIsNotSet);
+                    throw new ApplicationException(Errors.SOIsNotSet);
                 }
                 if (!ServiceObjectToType.ContainsKey(sObject.Name))
                 {
-                    throw new ApplicationException(string.Format(Resources.IsNotValidSO, sObject.Name));
+                    throw new ApplicationException(string.Format(Errors.IsNotValidSO, sObject.Name));
                 }
+                
                 var soType = ServiceObjectToType[sObject.Name];
-                var constParams = new object[] { this };
+                var constParams = new object[] { this, Helpers.Helper.GetSoDefinitionCollection(this) };
                 var soInstance = Activator.CreateInstance(soType, constParams) as ServiceObjectBase;
 
                 soInstance.Execute();
@@ -170,15 +170,8 @@ namespace K2Field.AdoNetHelper.ServiceBroker
                         if (_serviceObjects == null)
                         {
                             _serviceObjects = new List<ServiceObjectBase>();
-                            _soDefinitions = Helpers.Helper.GetSoDefinition(this);
-
-                            foreach (SoDefinition item in _soDefinitions)
-                            {
-
-                                
-                            }
-
-
+                            var soDefinitions =  Helpers.Helper.GetSoDefinitionCollection(this);
+                            _serviceObjects.Add(new AdoNetHelperSo(this, soDefinitions));
                         }
                     }
                 }

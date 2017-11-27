@@ -8,7 +8,7 @@ namespace K2Field.AdoNetHelper.ServiceBroker.ServiceObjects
 {
     public class SoDefinition
     {
-        public string Name { get; set; }
+        public string SoName { get; set; }
         public List<PropertyDefinition> Properties { get; set; }
 
         public SoDefinition()

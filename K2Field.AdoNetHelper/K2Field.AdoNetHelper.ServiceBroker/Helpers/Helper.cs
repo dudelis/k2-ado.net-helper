@@ -48,14 +48,14 @@ namespace K2Field.AdoNetHelper.ServiceBroker.Helpers
             };
             return methodParam;
         }
-        public static List<SoDefinition> GetSoDefinition(ServiceBroker sb)
+        public static SoDefinitionCollection GetSoDefinitionCollection(ServiceBroker sb)
         {
             string soDefinitionString =
                 sb.Service.ServiceConfiguration[Constants.ServiceConfig.ServiceObjectsDefinition].ToString();
 
             List<SoDefinition> returnList = new JavaScriptSerializer().Deserialize<List<SoDefinition>>(soDefinitionString);
 
-            return returnList;
+            return new SoDefinitionCollection(returnList);
         }
     }
 }

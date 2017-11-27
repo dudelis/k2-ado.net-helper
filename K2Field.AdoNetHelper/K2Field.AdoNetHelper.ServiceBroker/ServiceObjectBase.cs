@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using K2Field.AdoNetHelper.ServiceBroker.Constants;
-using K2Field.AdoNetHelper.ServiceBroker.Properties;
 using K2Field.AdoNetHelper.ServiceBroker.ServiceObjects;
 using SourceCode.SmartObjects.Services.ServiceSDK.Objects;
 
@@ -22,16 +21,16 @@ namespace K2Field.AdoNetHelper.ServiceBroker
             private set;
         }
 
-        protected List<SoDefinition> SoDefinitions { get; private set; }
+        protected SoDefinitionCollection SoDefCollection { get; private set; }
 
         protected ServiceObjectBase(ServiceBroker sb)
         {
             ServiceBroker = sb;
         }
-        protected ServiceObjectBase(ServiceBroker sb, List<SoDefinition> soDefinitions)
+        protected ServiceObjectBase(ServiceBroker sb, SoDefinitionCollection soCollection)
         {
             ServiceBroker = sb;
-            SoDefinitions = soDefinitions;
+            SoDefCollection = soCollection;
         }
 
         public abstract List<ServiceObject> DescribeServiceObjects();
@@ -43,12 +42,12 @@ namespace K2Field.AdoNetHelper.ServiceBroker
             if (p == null)
             {
                 if (isRequired)
-                    throw new ArgumentException(string.Format(Resources.RequiredPropertyNotFound, name));
+                    throw new ArgumentException(string.Format(Errors.RequiredPropertyNotFound, name));
                 return string.Empty;
             }
             var val = p.Value as string;
             if (isRequired && string.IsNullOrEmpty(val))
-                throw new ArgumentException(string.Format(Resources.RequiredPropertyIsEmpty, name));
+                throw new ArgumentException(string.Format(Errors.RequiredPropertyIsEmpty, name));
 
             return val;
         }
@@ -58,12 +57,12 @@ namespace K2Field.AdoNetHelper.ServiceBroker
             if (p == null)
             {
                 if (isRequired)
-                    throw new ArgumentException(string.Format(Resources.RequiredParameterNotFound, name));
+                    throw new ArgumentException(string.Format(Errors.RequiredParameterNotFound, name));
                 return string.Empty;
             }
             string val = p.Value as string;
             if (isRequired && string.IsNullOrEmpty(val))
-                throw new ArgumentException(string.Format(Resources.RequiredParameterIsEmpty, name));
+                throw new ArgumentException(string.Format(Errors.RequiredParameterIsEmpty, name));
 
             return val;
         }
