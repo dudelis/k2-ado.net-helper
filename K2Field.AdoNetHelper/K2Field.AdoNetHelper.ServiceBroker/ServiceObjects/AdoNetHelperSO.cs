@@ -22,22 +22,16 @@ namespace K2Field.AdoNetHelper.ServiceBroker.ServiceObjects
 
             foreach (var item in SoDefCollection.Items)
             {
-                var so = new ServiceObject()
-                {
-                    Name = item.SoName,
-                    MetaData = new MetaData(item.SoName, $"Service Object {item.SoName}, created on the basis of the Service Object Definition configuration parameter"),
-                    Active = true
-                };
-                var mExecuteAdoQuery = Helper.CreateMethod(Constants.Methods.ExecuteAdoQuery, "Executes Ado.Net query",
-                    MethodType.List);
-                mExecuteAdoQuery.MethodParameters.Create(Helper.CreateParameter(Parameters.AdoQuery,
-                    SoType.Memo, true));
-                so.Methods.Add(mExecuteAdoQuery);
+                var so = new ServiceObjectBuilder(item.SoName, $"Service Object {item.SoName}, created on the basis of the Service Object Definition configuration parameter", true);
+
+                var soMethod = new ServiceObjectMethodBuilder(Constants.Methods.ExecuteAdoQuery, "Executes Ado.Net query", MethodType.List);
+                soMethod.AddParameter(Parameters.AdoQuery, SoType.Memo, true);
                 foreach (var prop in item.Properties)
                 {
-                    so.Properties.Add(Helper.CreateProperty(prop.Name, prop.Name, prop.SoType));
-                    mExecuteAdoQuery.ReturnProperties.Add(prop.Name);
+                    so.CreateProperty(prop.Name, prop.Name, prop.SoType);
+                    soMethod.AddProperty(prop.Name, false, false, true);
                 }
+                so.AddMethod(soMethod);
                 sObjects.Add(so);
             }
 

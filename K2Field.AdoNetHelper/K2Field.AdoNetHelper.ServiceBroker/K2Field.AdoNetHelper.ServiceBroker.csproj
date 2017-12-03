@@ -68,6 +68,8 @@
     <Compile Include="Constants\ServiceConfig.cs" />
     <Compile Include="Helpers\Helper.cs" />
     <Compile Include="Helpers\MapHelper.cs" />
+    <Compile Include="Helpers\ServiceObjectBuilder.cs" />
+    <Compile Include="Helpers\ServiceObjectMethodBuilder.cs" />
     <Compile Include="K2Connection.cs" />
     <Compile Include="ServiceObjects\PropertyDefinition.cs" />
     <Compile Include="ServiceObjects\SoDefinition.cs" />
