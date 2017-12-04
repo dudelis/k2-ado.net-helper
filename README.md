@@ -12,7 +12,7 @@ For more details and detailed instruction on how to configure it, please, refer 
 ## User Manual
 Please, refer to the following links:
 - [User Manual](https://github.com/dudelis/k2-ado.net-helper/wiki/User-Manual)
-- [How to delete selected values](TBD)
+- [How to obtain distinct values from a SmartObject](https://github.com/dudelis/k2-ado.net-helper/wiki/How-to-obtain-distinct-values-from-a-SmartObject)
 - [How to create complex joins](TBD)
 
 ## Disclaimer
