@@ -24,7 +24,7 @@ namespace K2Field.AdoNetHelper.ServiceBroker.Helpers
         {
             if (isInput) method.InputProperties.Add(name);
             if (isRequired) method.Validation.RequiredProperties.Add(name);
-            if (isRequired) method.ReturnProperties.Add(name);
+            if (isReturn) method.ReturnProperties.Add(name);
             return this;
         }
 
